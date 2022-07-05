@@ -19,11 +19,9 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@Configuration("persistence")
-//@Configuration
+@Configuration
 @EnableTransactionManagement(proxyTargetClass = true)
-@EnableJpaRepositories("web.Dao")
-//@ComponentScan(basePackages = "web")
+@ComponentScan(basePackages = "web")
 @PropertySource(value ="classpath:application.properties")
 public class HibernateConfig {
     @Autowired
@@ -41,7 +39,8 @@ public class HibernateConfig {
 
     @Bean
     public JpaVendorAdapter getJpaVendorAdapter() {
-        return new HibernateJpaVendorAdapter();
+        JpaVendorAdapter adapter = new HibernateJpaVendorAdapter();
+        return adapter;
     }
 
     @Bean(name = "transactionManager")
