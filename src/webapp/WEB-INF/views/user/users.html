@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" >
+    <head>
+        <meta charset="UTF-8">
+        <title>CRUD</title>
+    </head>
+    <body>
+        <p>CRUD</p>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Age</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="user, iterStat : ${users}" th:style="${iterStat.odd}? 'font-weight: bold;'">
+                    <td th:text="${user.getId()}"></td>
+                    <td th:text="${user.getName()}"></td>
+                    <td th:text="${user.getAge()}"></td>
+                </tr>
+            </tbody>
+        </table>
+        <br>
+        <form th:method="post" th:object="${user}">
+
+
+            <label for="name">Name</label>
+            <input id="name" th:field="*{name}" type="text"/>
+
+            <br>
+
+            <label for="age">Age</label>
+            <input th:field="*{age}" type="text" id="age"/>
+
+            <br>
+
+            <input type="submit" value="add user"/>
+
+        </form>
+
+        <br>
+        <form th:method="delete" th:object="${user}">
+
+            <Label name="id"> Remove By Id : </Label>
+            <!--/*@thymesVar id="deletedId" type=""*/-->
+            <input name="id" th:each="id"  id="id" type="text"/>
+            <input type="submit" th:value="remove"/>
+
+        </form>
+
+    </body>
+
+
+</html>
