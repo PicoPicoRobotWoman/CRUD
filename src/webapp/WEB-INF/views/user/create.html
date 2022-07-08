@@ -6,7 +6,9 @@
         <title>CRUD</title>
     </head>
     <body>
-        <p>CRUD</p>
+        <p>CRUD Create</p>
+        <p><a href="/select">CRUD Select</a></p>
+
         <table>
             <thead>
                 <tr>
@@ -37,19 +39,10 @@
 
             <br>
 
-            <input type="submit" value="add user"/>
+            <input type="submit" value="create user"/>
 
         </form>
 
-        <br>
-        <form th:method="delete" th:object="${user}">
-
-            <Label name="id"> Remove By Id : </Label>
-            <!--/*@thymesVar id="deletedId" type=""*/-->
-            <input name="id" th:each="id"  id="id" type="text"/>
-            <input type="submit" th:value="remove"/>
-
-        </form>
 
     </body>
 

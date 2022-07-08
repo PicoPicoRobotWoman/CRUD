@@ -6,9 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 import web.Service.UserService;
-import web.Service.UserServiceImpl;
 import web.model.User;
 
 @Controller
@@ -18,30 +16,58 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("")
-    public String page(Model model) {
+    @GetMapping("create")
+    public String createPage(Model model) {
         model.addAttribute( "users" ,userService.allUsers());
         model.addAttribute("user", new User());
 
-        return "/user/users";
+        return "user/create";
     }
 
-    @PostMapping
-    public String AddUser(@ModelAttribute(value = "user") User user) {
-        System.out.println("add");
+    @PostMapping("create")
+    public String createUser(@ModelAttribute(value = "user") User user) {
         if (user.getName() != null && user.getAge() != null) {
-            userService.add(user);
+            userService.create(user);
         }
-        return "redirect:/users";
+        return "redirect:/create";
     }
 
-    @DeleteMapping("/delete/{id}")
-    public String deleteById(@PathVariable("id") Long id) {
-        System.out.println("delete");
-        userService.delete(userService.getUserById(id));
-
-        return "redirect:/users";
+    @GetMapping("select")
+    public String editPage(Model model) {
+        model.addAttribute( "users" ,userService.allUsers());
+        return "user/select";
     }
+
+    @PostMapping("select")
+    public String editUser(@RequestParam(value = "id", required = false) Long id) {
+        if (userService.getUserById(id) != null) {
+            return "redirect:/select/" + id;
+        }
+        return "redirect:/select";
+    }
+
+    @GetMapping("select/{id}")
+    public String UpdatePage(@PathVariable("id") long id, Model model) {
+        model.addAttribute("user", userService.getUserById(id));
+
+        return "user/edit";
+    }
+
+    @PatchMapping("select/{id}/update")
+    public String UpdateUser(@ModelAttribute("user") User user) {
+        userService.update(user);
+
+        return "redirect:/select";
+    }
+
+    @DeleteMapping("select/{id}/remove")
+    public String removeUser(@ModelAttribute("user") User user) {
+        userService.remove(user);
+
+        return "redirect:/select";
+    }
+
+
 
 }
 

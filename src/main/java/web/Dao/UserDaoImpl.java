@@ -14,48 +14,33 @@ import java.util.concurrent.atomic.AtomicInteger;
 @Transactional
 public class UserDaoImpl implements UserDao {
 
-
-    private static final AtomicInteger AUTO_ID = new AtomicInteger(0);
-    private static final Map<Long, User> users = new HashMap<>();
-
-    {
-        User user1 = new User("name" + 1, 21);
-        User user2 = new User("name" + 2, 22);
-        User user3 = new User("name" + 3, 23);
-        User user4 = new User("name" + 4, 24);
-        User user5 = new User("name" + 5, 25);
-
-        this.add(user1);
-        this.add(user2);
-        this.add(user3);
-        this.add(user4);
-        this.add(user5);
-
-    }
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @Override
     public List<User> AllUsers() {
-        return new ArrayList<>(users.values());
+        String JPAql = "select user from User user";
+        return entityManager.createQuery(JPAql, User.class).getResultList();
+
     }
 
     @Override
-    public void add(User user) {
-
-        users.put(user.getId(), user);
+    public void create(User user) {
+        entityManager.persist(user);
     }
 
     @Override
-    public void delete(User user) {
-        users.remove(user.getId());
+    public void remove(User user) {
+        entityManager.remove(entityManager.contains(user) ? user : entityManager.merge(user));
     }
 
     @Override
-    public void edit(User user) {
-        users.put(user.getId(), user);
+    public void update(User user) {
+        entityManager.merge(user);
     }
 
     @Override
-    public User detUsetById(Long id) {
-        return users.get(id);
+    public User getUsetById(Long id) {
+        return entityManager.find(User.class, id);
     }
 }

@@ -6,6 +6,7 @@ import web.Dao.UserDao;
 import web.Dao.UserDaoImpl;
 import web.model.User;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
@@ -13,28 +14,31 @@ public class UserServiceImpl implements UserService {
     @Autowired
     UserDao dao;
 
+    @Transactional
     @Override
     public List<User> allUsers() {
         return dao.AllUsers();
     }
 
+    @Transactional
     @Override
-    public void add(User user) {
-        dao.add(user);
+    public void create(User user) {
+        dao.create(user);
     }
 
+    @Transactional
     @Override
-    public void delete(User user) {
-        dao.delete(user);
+    public void remove(User user) {
+        dao.remove(user);
     }
 
+    @Transactional
     @Override
-    public void edit(User user) {
-        dao.edit(user);
-    }
+    public void update(User user) { dao.update(user); }
 
+    @Transactional
     @Override
     public User getUserById(Long id) {
-        return dao.detUsetById(id);
+        return dao.getUsetById(id);
     }
 }

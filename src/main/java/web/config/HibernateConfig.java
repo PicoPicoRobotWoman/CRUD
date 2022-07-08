@@ -23,11 +23,9 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @ComponentScan(basePackages = "web")
 @PropertySource(value ="classpath:application.properties")
 public class HibernateConfig {
-    private final Environment env;
+
     @Autowired
-    public HibernateConfig(Environment env) {
-        this.env = env;
-    }
+    private Environment env;
 
     @Bean
     public DataSource dataSource() {

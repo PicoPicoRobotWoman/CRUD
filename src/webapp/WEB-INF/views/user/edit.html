@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit</title>
+</head>
+<body>
+<p><a href="/create">CRUD Create</a></p>
+<p><a href="/select">CRUD Select</a></p>
+<P>CRUD Edit</P>
+
+<br>
+<form th:method="PATCH" th:action="@{/select/{id}/update(id=${user.getId()})}" th:object="${user}">
+    <label for="name">New username:
+        <input type="text" id="name" th:field="*{name}">
+    </label>
+    <label for="age">New lastname:
+        <input type="text" id="age" th:field="*{age}">
+    </label>
+
+    <input type="submit" value="Update" />
+</form>
+<br>
+
+<form th:method="DELETE" th:action="@{/select/{id}/remove(id=${user.getId()})}" th:object="${user}">
+    <input type="submit" value="remove user" />
+</form>
+</body>
+</html>

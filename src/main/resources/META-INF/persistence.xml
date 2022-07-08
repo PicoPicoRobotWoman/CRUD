@@ -1,0 +1,5 @@
+<persistence>
+    <persistence-unit name="crud-app" />
+    <provider>org.hibernate.ejb.HibernatePersistence</provider>
+</persistence>
+
