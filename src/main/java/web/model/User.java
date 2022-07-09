@@ -22,13 +22,17 @@ public class User {
     @Column(name = "age")
     private Integer age;
 
+    @Column(name = "email")
+    private String email;
+
     public User() {
 
     }
 
-    public User(String name, Integer age) {
+    public User(String name, Integer age, String email) {
         this.name = name;
         this.age = age;
+        this.email = email;
     }
 
     public void setId(Long id) { this.id = id; }
@@ -39,5 +43,8 @@ public class User {
 
     public void setAge(Integer age) { this.age = age; }
     public Integer getAge() { return age; }
+
+    public void setEmail(String email) { this.email = email; }
+    public String getEmail() {return email; }
 
 }
