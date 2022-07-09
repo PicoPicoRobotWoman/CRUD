@@ -35,7 +35,6 @@ public class UserController {
 
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable(value = "id", required = false) Long id, Model model) {
-        System.out.println(id);
         if ( id != null && userService.getUserById(id) != null ) {
             model.addAttribute("user", userService.getUserById(id));
             return "user/edit";
@@ -45,7 +44,6 @@ public class UserController {
 
     @PostMapping("/{id}/update")
     public String updateUser(@PathVariable(value = "id", required = false) Long id, @ModelAttribute("user") User user) {
-        System.out.println();
         user.setId(id);
         userService.update(user);
         return "redirect:/user/home";
@@ -56,8 +54,6 @@ public class UserController {
         userService.remove(user);
         return "redirect:/user/home";
     }
-
-
 
 }
 
