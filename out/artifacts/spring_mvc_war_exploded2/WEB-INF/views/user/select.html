@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Select</title>
+</head>
+<body>
+<p><a href="/create">CRUD Create</a></p>
+<p>CRUD Select</p>
+<br>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Age</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user, iterStat : ${users}" th:style="${iterStat.odd}? 'font-weight: bold;'">
+            <td th:text="${user.getId()}"></td>
+            <td th:text="${user.getName()}"></td>
+            <td th:text="${user.getAge()}"></td>
+        </tr>
+        </tbody>
+    </table>
+<br>
+
+<form th:method="POST" >
+    <label for="id">ID :
+        <input type="text" id="id" name="id">
+    </label>
+    <input type="submit" name="id" value="select user" />
+</form>
+
+</body>
+</html>
